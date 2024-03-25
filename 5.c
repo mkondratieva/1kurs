@@ -31,7 +31,7 @@ int ** matrixget(FILE *in, size_t *rows,size_t **col){ //чтение криво
                     data[j]=x;//извлеченное число кладем в массив
                     j++;s++;
         }
-        (*col)[i]=s;i++;//yfqltyyjt rjkbxtcndj 'ktvtynjd cnhjrb rkfltv d vfccbd lkby
+        (*col)[i]=s;i++;//найденное количество элементов строки кладем в массив длин
     }
     *rows=i;//количество строк матрицы теперь известно
      memmove((int **)data+i,(int**)data,j*sizeof(int));//переносим элементы матрицы в конец массива, сразу заполнять  конец массива элементами матрицы сложно из-за использования realloc
