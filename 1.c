@@ -1,32 +1,18 @@
-#include<stdio.h>  //найти количество чисел последовательности (записанной в файл 1.txt
-#include<math.h>
+#include<stdio.h>  //(-1)^n, где n -- количество элементов, не  меньших предыдущего
 int main(void){ 
-	//unsigned 
-char  u=127; u=0x7f;
-	printf("%dx ",u);
-
-	u=u+127;
-	printf("%d %u %x  %lf %u\n",u,u,u,pow(2,32)-2,sizeof(FILE));
-	u=127; u+=u;
-	if(u==-2){
-		printf("-2\n");
+	FILE *in=fopen("1.txt","r");
+	int res=1,count=0,cur,prev,max;
+	while(fscanf(in, "%d",&cur)==1){
+		count+=1;
+        	if(count>1 && prev<=cur)
+	        	res=-res;
+//        printf("result=%d prev=%d cur=%d count=%d\n",res,prev,cur,count);//
+  	      	if(count==1 || cur>max)
+                	max=cur;
+        	prev=cur;
 	}
-	else{
-		printf("No");
-	}
-	while(u<0) {
-		u++;continue;	printf("%x\n",u); break; }
+	printf("result=%d  max=%d\n",res,max);
+	fclose(in);
 	return 0;
-
-{
-//main -- основная функция, с выполнения которой начинается программа. Не требует декларации
-	FILE *in=fopen("1.txt","r");//открываем файл с данными (целыми числами) на чтение
-	int res=0,cur;//т.к.  вычисление количества чисел последовательности -- функция индуктивная, для нахождения результата достаточно двух переменных
-	while(fscanf(in, "%d",&cur)==1){//цикл, который извлекает числа из файла в переменную cur (пока это возможно)
-		res=res+1;//на каждой итерации цикла (при успешном извлечении из файла очередного числа) результат (счетчик количества) увеличиваем на 1
-	}
-	printf("result=%d\n",res);//после окончания цикла в переменной cur накоплен результат, печатаем его на экран
-	fclose(in);//закрыли файл с данными
-}	return 0;
 }
 	
