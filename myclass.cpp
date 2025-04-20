@@ -1,7 +1,7 @@
 #include<iostream>
 #include<ctime>
 class my{
-	int x=rand() ;
+	int x=rand()%11 ;
 	public: 
 	double method(const double &y){return x+y;}
 	double operator+(const double &y)const &{
