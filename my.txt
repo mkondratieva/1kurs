@@ -1,0 +1,42 @@
+//makefile
+a.out:main.o my.o
+	g++   main.o my.o
+main.o:main.cpp my.h
+	g++ -c main.cpp  
+my.o:my.cpp my.h
+	g++ -c my.cpp  
+//my.h
+#include<iostream>
+#include<fstream>
+#include<ctime>
+class my{
+	int x=rand()%11;
+	public: 
+	double method(const double &y);
+	double operator+(const double &y)const &;
+	friend double operator +(const double &, const  my &);
+	friend std::ostream& operator<<(std::ostream &ouut, const my &);
+};
+double operator +(const double &, const  my &);
+std::ostream& operator<<(std::ostream &ouut, const 	 my &);
+//my.cpp
+#include"my.h"
+double my:: method(const double &y){return x+y;}
+double my::operator+(const double &y)const &{
+		return x+y;
+	}
+double operator +(const double &y, const  my &obj){ 
+	return obj+y;
+}
+std::ostream& operator<<(std::ostream &out, const my &obj){
+	out<<obj.x;
+	return out;
+}
+//main.cpp
+#include"my.h"
+int main(){
+srand(time(0));
+	my z; 
+std::cout<<my().method(0.1)<<"   "<<my()+-0.1<<"  "<<0.7+my()<<"  z="<<z<<"  "<<-0.001+z+0.001+z<<"\n";
+	return 0;
+} 
