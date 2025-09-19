@@ -1,0 +1,22 @@
+#include<stdio.h> //печать последовательности Фибоначчи  
+
+int main(void){
+	int pprev=0,prev=1,cur=0;//3 соседних числа из последовательности
+	while(cur<100){//
+		printf("%d ",cur); //печать текущего числа
+		pprev=prev; //изменяем  первое
+		prev=cur;  //изменяем второе
+		cur=prev+pprev;//изменяем третье
+	}
+	printf("\n");
+	{ //вариант с двумя перенными
+		int cur=0,next=1;//2 соседних числа последовательности
+		while(cur<100){
+			printf("%d ",cur); //печать текущего
+			next+=cur;//следующее рравно сумме двух предыдущих
+			cur=next-cur; //находим предыдущее для new_next (т.к.  new_next=next+cur, new_cur=next=new_next-cur)
+		}
+	}
+	printf("\n");
+	return 0;
+} 
