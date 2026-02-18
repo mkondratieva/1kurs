@@ -1,7 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
-#define N 3
-#define M 4
+#include"1.h"
 int main(void){ 
 //одномерные массивы Си, 2 сарсоба задания
 {	//1) type array  или массив (фиксированного размера)
@@ -59,14 +56,12 @@ int main(void){
 	}
 	puts("_______________");
 }
-{       // 3) знаем только M (количество строк) -  массив указателей
+{       // 3а) знаем только M (количество строк) -  массив указателей
 	int *matrix[M]={NULL},*(*p)[M]=NULL;// р -- указатель на массив указателей
 	for(size_t i=0;i<M;i++)
-		matrix[i]=(int *)alloca(N*sizeof(*matrix[i]));//не единый кусок!
+		matrix[i]=(int *)alloca(N*sizeof(*matrix[i]));//не единый кусок! Много раз alloca
 	p=&matrix;
-	for(size_t i=0;i<M;i++)
-		for(size_t j=0;j<N;j++)
-			matrix [i][j]=i+j;
+	full_matrix(matrix);
 	for(size_t i=0;i<M;i++){
 		for(size_t j=0;j<N;j++)
 			printf("%d ",(*p) [i][j]);
@@ -74,15 +69,14 @@ int main(void){
 	}
 	puts("_________________");
 }
-{       //3)a  знаем только M (количество строк, отведение памяти единым куском
+{       //3б)  знаем только M (количество строк, отведение памяти единым куском
 	int *matrix[M]={NULL},*(*p)[M]=NULL; //массив указателей
 	matrix[0]=(int *)alloca(M*N*sizeof(*matrix[0]));// одно отведение памяти
-	for(size_t i=1;i<M;i++) //разметка отведенной памяти
-		matrix[i]=matrix[0]+i*N;
+	for(size_t i=1;i<M;i++) 
+		matrix[i]=matrix[0]+i*N; //разметка отведенной памяти
 	p=&matrix;
-	for(size_t i=0;i<M;i++)
-		for(size_t j=0;j<N;j++)
-			matrix [i][j]=i+j;
+	for(size_t i=0;i<N*M;i++) 
+		matrix[0][i]=i; //память отведена единым куском
 	for(size_t i=0;i<M;i++){
 		for(size_t j=0;j<N;j++)
 			printf("%d ",(*p) [i][j]);
