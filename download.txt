@@ -1,0 +1,6 @@
+Скачать Питон
+https://www.python.org/downloads/
+Справка (Староверов)
+http://lectures.stargeo.ru/Python3-1.htm
+Самоучитель
+https://pythonworld.ru/samouchitel-python
