@@ -19,11 +19,10 @@ def task(str='1.txt'):
 		f=open(str)
 		n=0
 		s=0.
-		while line:=f.readline():#for line in f:
-			line=line.split();i=0
-			while(i<len(line)):#for x in line.split():
-				s+=int(line[i])
-				n+=1;i+=1
+		for line in f:
+			for x in line.split():
+				s+=int(x)
+				n+=1
 		s/=n
 		return s
 	except ValueError:
