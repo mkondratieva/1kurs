@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<time.h>
 #define M 6 //количество строк, нужно убрать
-#define swap(t, x, y)  { t temp = x; x = y; y = temp; } 
 void pr(int **matrix, size_t *rows){ //печать матрицы, сюда нужно передавать ещеи  количество строк
 	for(size_t i=0;i<M;i++){
 		for(size_t j=0;j<rows[i];j++)
@@ -43,14 +43,15 @@ int main(void){
             s=tmp;//обновление строки
        }
     }
-    puts(s);//последняя строка файла может не иметь символа '\n', она сохранисать в s, но не была еще напечатана
+    if(begin)	
+	    puts(s);//последняя строка файла может не иметь символа '\n', она сохранисать в s, но не была еще напечатана
     fclose(in);
      puts("_________");
     }
     {   //чтение из файла криволинейного массива, здесь нужно найти и исправить две опечатки
      FILE *in=fopen("1.txt","r");
      char buf[111];//нужно заменить динамическим массивом 
-     int **matrix,*data=NULL; size_t *rows=NULL,Ldata=1,Lrows=1,s=0,j=0;
+     int **matrix=NULL,*data=NULL; size_t *rows=NULL,Ldata=1,Lrows=1,s=0,j=0;
 //data -- одномерный массив всех чисел файла,s -- их количество, rows -- массив длин матрицы, 
 //j -- количество строк, Ldata, Lrows -- размеры отведенной под data и rows памяти
      while(fgets(buf,111,in)){ //fgets нужно заменить на mygets   
@@ -60,24 +61,27 @@ int main(void){
          }
          rows[j]=0; //теперь памяти достаточно, rows[j] должно стать количеством чисес в buf
          for(;sscanf(tmp,"%d%n",&k,&pos)==1;tmp+=pos){ //пока возможно, извлекаем из buf число, чтобы записать его в массив data
-	     if(s+1>Ldata){  // проверяем, достаточно ли отведенной для data памяти для записи числа k
+	     if(s+1>=Ldata){  // проверяем, достаточно ли отведенной для data памяти для записи числа k
         	     Ldata*=2;data=realloc(data,Ldata*sizeof(*data));
 	     }
              data[s]=k;rows[j]++;s++;
-	}
+	}    
+	     if(sscanf(tmp,"%s",tmp)==1){//проверяем мусор в файле
+		puts("err");;goto L;
+	      } 
              j++; //переходим к следующей строке
      } 
      data=realloc(data, s*sizeof(*data)+j*sizeof(*matrix));//последний realloc для сокращения отведенной под data памяти + добавляем посде data место для j указателей на строки
 //это и будет матрица, под которую память отведена единым куском
-     for(size_t i=s-1;i+1>=1;s--)//нужно сместить элементы массива data в конец отведенной памяти
+     for(size_t i=s-1;i+1>=1;i--)//нужно сместить элементы массива data в конец отведенной памяти
 	       data[i+j*sizeof(*matrix)/sizeof(int)]=data[i];
 
       matrix=(int**)data;
-     //далее нужно сделать разметку отведенной памяти. Она делаетсястандартно, см. следующий фрагмент этого кода
-        
+      matrix[0]=(int *)(matrix+j); 
+      for(size_t i=1;i<j;i++)
+		matrix[i]=matrix[i-1]+rows[i-1];
       pr(matrix,rows);	
-      //здесь нужно протестировать,например, вызвать del_col
-     fclose(in);
+	L:  free(matrix); free(rows);fclose(in);
      puts("_________");
     }
 	int **matrix=NULL; 
