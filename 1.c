@@ -18,6 +18,7 @@ printf("max_int=%d max_int=%d  min_int=%d max_int=%d \n-10^8=%d\n",x,0x7fffffff,
 		prev=cur;
 		cur=next; 
 	}
+	puts("");
 	return 0;
 }
 }
