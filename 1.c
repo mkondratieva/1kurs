@@ -9,7 +9,7 @@ int main(void){
 
 
 	x|=(1<<31);//старший бит изменили на 1, получилось максимальное int
-printf("max_int=%d max_int=%d  min_int=%d max_int=%d \n-10^8=%d\n",x,0x7fffffff,~0x7fffffff,(1u<<31)-1,-10^8);
+	printf("max_int=%d max_int=%d  min_int=%d max_int=%d \n-10^8=%d\n",x,0x7fffffff,~0x7fffffff,(1u<<31)-1,-10^8);
 {//0 1 1 2 5 7  - последовательность Фибоначчи, число равно сумме двух предыдущих
 	int prev=0,cur=1,next;
 	for( ;cur<100;){
@@ -19,8 +19,8 @@ printf("max_int=%d max_int=%d  min_int=%d max_int=%d \n-10^8=%d\n",x,0x7fffffff,
 		cur=next; 
 	}
 	puts("");
-	return 0;
 }
+	return 0;
 }
 
 		
