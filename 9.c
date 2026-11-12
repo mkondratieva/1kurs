@@ -90,5 +90,6 @@ int main(void){
 	printf("time1=%lf\n" ,(double)(t2-t1));
 	puts("end");
 	free(mass); 
+	free(copy);
 	return 0; 
 }
