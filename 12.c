@@ -5,7 +5,7 @@ void pr(int  c[],size_t n);
 size_t init(int **);
 int cmp(const  void *, const void *);
 int key(int);
-void Qsort(int *, size_t n, size_t );
+void median(int *, size_t n, size_t );
 void lsort(int *, size_t n);//сортировка подсчетами
 int key(int a){return a%2;}
 
@@ -23,7 +23,7 @@ void pr(int  c[],size_t n){
 }
 size_t init(int  **c){
 	size_t n=//111111//
-1+rand()%22
+1+rand()%32
 ;	
 	*c=(int *)malloc(n*sizeof(int));	
 	for(size_t i=0;i<n;i++)
@@ -37,7 +37,7 @@ int cmp(const  void *a, const void *b){
 	return a1-b1//(a1%10-b1%10)
 ;
 }
-void Qsort(int *a, size_t n, size_t mid){  //  ******a[mid]****
+void median(int *a, size_t n, size_t mid){  //  ******a[mid]****
 	size_t left=1;
 	if(n<=1) return;
 	swap(a,a+n/2);
@@ -46,9 +46,9 @@ void Qsort(int *a, size_t n, size_t mid){  //  ******a[mid]****
 	swap(a,a+left-1);
 	if(left-1==mid) return;
 	if(mid<left-1)
-		Qsort(a,left-1,mid);
+		median(a,left-1,mid);
 	else
-		Qsort(a+left,n-left,mid-left);
+		median(a+left,n-left,mid-left);
 }	
 
 void lsort(int *a, size_t n){
@@ -85,7 +85,7 @@ int main(void){
 	printf("time1=%lf median=%d\n" ,(double)(t2-t1),mass[n/2]);
 	pr(copy,n);
 	t1=clock();
-        lsort(copy, n);
+        median(copy,n,n/2);//lsort(copy, n);
 	t2=clock();
 	pr(copy,n);
 	printf("time1=%lf mymedian=%d\n" ,(double)(t2-t1),copy[n/2]);
